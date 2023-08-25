@@ -7,7 +7,7 @@ interface Props {
 defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'clickOnKey'): void
+  (e: 'clickOnKey', key: string): void
 }>()
 </script>
 
