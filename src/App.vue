@@ -18,8 +18,14 @@ const { notification, showNotification } = useNotification()
 const isWin = computed(() => [...word.value].every((x) => correctLetters.value.includes(x)))
 const isLose = computed(() => wrongLetters.value.length === 6)
 const popup = ref<InstanceType<typeof GamePopup> | null>(null)
-const restart = async () => {
+/* const restart = async () => {
   await getRandomWord()
+  getRandomWord()
+  resetLetters()
+  popup.value?.closePopup()
+} */
+const restart = () => {
+  getRandomWord()
   resetLetters()
   popup.value?.closePopup()
 }
