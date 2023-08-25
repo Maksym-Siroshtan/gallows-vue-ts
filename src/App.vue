@@ -10,6 +10,7 @@ import GameWrongLetters from './components/GameWrongLetters.vue'
 import GameWord from './components/GameWord.vue'
 import GamePopup from './components/GamePopup.vue'
 import GameNotification from './components/GameNotification.vue'
+import GameKeyboard from './components/GameKeyboard.vue'
 
 const { word, getRandomWord } = useRandomWord()
 const { letters, correctLetters, wrongLetters, addLetters, resetLetters } = useLetters(word)
@@ -52,6 +53,14 @@ window.addEventListener('keydown', ({ key }) => {
   }
   addLetters(key)
 })
+
+function clickOnKey(key: string) {
+  addLetters(key)
+}
+
+const keyboardRowTop = ['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ']
+const keyboardRowMiddle = ['ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э']
+const keyboardRowBottom = ['я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю']
 </script>
 
 <template>
@@ -60,6 +69,12 @@ window.addEventListener('keydown', ({ key }) => {
   <div class="game-container">
     <GameFigure :wrong-letters-count="wrongLetters.length" />
     <GameWrongLetters :wrong-letters="wrongLetters" />
+    <GameKeyboard
+      :keyboard-row-top="keyboardRowTop"
+      :keyboard-row-middle="keyboardRowMiddle"
+      :keyboard-row-bottom="keyboardRowBottom"
+      @click-on-key="clickOnKey"
+    />
     <GameWord :word="word" :correct-letters="correctLetters" />
   </div>
 
