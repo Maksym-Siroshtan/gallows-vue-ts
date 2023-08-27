@@ -55,26 +55,23 @@ window.addEventListener('keydown', ({ key }) => {
 })
 
 function clickOnKey(key: string) {
+  if (letters.value.includes(key)) {
+    showNotification()
+    return
+  }
   addLetters(key)
 }
-
-const keyboardRowTop = ['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ']
-const keyboardRowMiddle = ['ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э']
-const keyboardRowBottom = ['я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю']
 </script>
 
 <template>
   <GameHeader @restart="restart" />
 
   <div class="game-container">
-    <GameFigure :wrong-letters-count="wrongLetters.length" />
-    <GameWrongLetters :wrong-letters="wrongLetters" />
-    <GameKeyboard
-      :keyboard-row-top="keyboardRowTop"
-      :keyboard-row-middle="keyboardRowMiddle"
-      :keyboard-row-bottom="keyboardRowBottom"
-      @click-on-key="clickOnKey"
-    />
+    <div style="display: flex; justify-content: space-between;">
+      <GameFigure :wrong-letters-count="wrongLetters.length" />
+      <GameWrongLetters :wrong-letters="wrongLetters" />
+    </div>
+    <GameKeyboard @click-on-key="clickOnKey" />
     <GameWord :word="word" :correct-letters="correctLetters" />
   </div>
 
