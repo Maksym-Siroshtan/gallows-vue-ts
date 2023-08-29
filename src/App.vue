@@ -13,7 +13,7 @@ import GameNotification from './components/GameNotification.vue'
 import GameKeyboard from './components/GameKeyboard.vue'
 
 const { word, getRandomWord } = useRandomWord()
-const { letters, correctLetters, wrongLetters, addLetters, resetLetters } = useLetters(word)
+const { correctLetters, wrongLetters, addLetters, resetLetters, isHaveLetters } = useLetters(word)
 const { notification, showNotification } = useNotification()
 
 const isWin = computed(() => [...word.value].every((x) => correctLetters.value.includes(x)))
@@ -47,7 +47,8 @@ window.addEventListener('keydown', ({ key }) => {
   if (isWin.value || isLose.value) {
     return
   }
-  if (letters.value.includes(key)) {
+
+  if (isHaveLetters(key)) {
     showNotification()
     return
   }
@@ -55,7 +56,7 @@ window.addEventListener('keydown', ({ key }) => {
 })
 
 function clickOnKey(key: string) {
-  if (letters.value.includes(key)) {
+  if (isHaveLetters(key)) {
     showNotification()
     return
   }
@@ -67,7 +68,7 @@ function clickOnKey(key: string) {
   <GameHeader @restart="restart" />
 
   <div class="game-container">
-    <div style="display: flex; justify-content: space-between;">
+    <div class="game-main-container">
       <GameFigure :wrong-letters-count="wrongLetters.length" />
       <GameWrongLetters :wrong-letters="wrongLetters" />
     </div>

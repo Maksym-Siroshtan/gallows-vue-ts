@@ -12,12 +12,14 @@ export const useLetters = (word: Ref<string>) => {
   const resetLetters = () => {
     letters.value = []
   }
+  const isHaveLetters = (key: string) => (letters.value.includes(key) ? true : false)
 
   return {
     letters,
     correctLetters,
     wrongLetters,
     addLetters,
-    resetLetters
+    resetLetters,
+    isHaveLetters
   }
 }
